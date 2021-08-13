@@ -42,8 +42,8 @@ This project will be implemented with the following technologies:
 
 ## Implementation Timeline
 
-- **Friday Afternoon & Weekend:** Learn more and full understand the jArchive API that I will be using. Outline my object heirarchy. Start creating objects.
-- **Monday:** Begin implementing game logic and DOM. 
+- **Friday Afternoon & Weekend:** Learn more and full understand the jService API that I will be using. Outline my object heirarchy. Start creating objects and implementing game logic.
+- **Monday:** Continue implementing game logic and DOM. 
 - **Tuesday:** Continue adding game logic, DOM, and additional features.
 - **Wednesday:** Focus on styling, layout, UI, and design. 
 - **Thursday:** Deploy to GitHub pages. Rewrite this proposal as a production README.
