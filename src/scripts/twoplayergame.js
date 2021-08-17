@@ -1,12 +1,12 @@
 function shuffle(arr) { return arr.sort(() => Math.random() - 0.5) }
 
-class Game {
+class twoPlayerGame {
 
-    constructor (el, options) {
+    constructor(el, options) {
 
         // Get categories IMPLEMENT CAT SELECTION
         this.categoryIDs = options || [50, 253, 176, 672];
-        
+
         // 'Database' of cats and clues
         this.categories = [];
         this.clues = {};
@@ -14,14 +14,28 @@ class Game {
         // State
         this.currentClue = null;
         this.currentClueValue = null;
-        this.score = 0;
+        this.currentPlayer = null;
+        this.playerOne = {
+            name: 'playerOne',
+            score: 0
+        };
+        this.playerTwo = {
+            name: 'playerTwo',
+            score: 0
+        };
 
         // HTML elements needed 
         this.menuElement = document.querySelector('.menu')
         this.boardElement = el.querySelector('.board')
-        this.scoreElement = el.querySelector('.score')
-        this.scoreCountElement = el.querySelector('.score-count')
-        this.formElement = el.querySelector('form')
+
+        this.playerOneScoreElement = el.querySelector('.player-one-score')
+        this.playerTwoScoreElement = el.querySelector('.player-two-score')
+        this.playerOneScoreCountElement = el.querySelector('.player-one-score-count')
+        this.playerTwoScoreCountElement = el.querySelector('.player-two-score-count')
+
+        this.inputContainerElement = el.querySelector('.input-container')
+        this.playerInputTurnElement = el.querySelector('.player-input-turn')
+        this.formElement = el.querySelector('.two-player-input-form')
         this.inputElement = el.querySelector('input[name=user-answer]')
         this.cardModalElement = el.querySelector('.card-modal')
         this.cardModalInnerElement = el.querySelector('.card-modal-inner')
@@ -32,12 +46,15 @@ class Game {
         this.successTextElement = el.querySelector('.result_success')
         this.failTextElement = el.querySelector('.result_fail')
         this.disputeButtonElement = el.querySelector('.dispute-btn')
+
+        this.handlePlayerKey = this.handlePlayerKey.bind(this)
     }
 
-    playGame () {
+    playGame() {
 
         // this.menuElement.classList.add('hide')
-        this.updateScore(0);
+        this.updateScore(this.playerOne, 0);
+        this.updateScore(this.playerTwo, 0);
         this.getCategories();
         this.boardElement.addEventListener('click', event => {
             if (event.target.dataset.clueId) {
@@ -45,28 +62,51 @@ class Game {
             }
         })
 
-        this.formElement.addEventListener('submit', event => {
-            this.handleFormSubmit(event);
-        } )
+        // this.formElement.addEventListener('submit', event => {
+        //     this.handleFormSubmit(event);
+        // })
+
+        // document.addEventListener('keyup', event => {
+        //     if (event.code === 'KeyP') {
+        //         console.log(event);
+        //         this.currentPlayer = this.playerOneScore
+        //     } else if (event.code === 'KeyQ') {
+        //         console.log(event);
+        //         this.currentPlayer = this.playerTwoScore
+        //     }
+
+        // })
 
         this.disputeButtonElement.addEventListener('click', event => {
             this.handleDisputeAnswer(event);
         })
     }
 
-    updateScore (delta) {
-        this.score += delta
-        this.scoreCountElement.textContent = this.score;
+    updateScore(currentPlayer, delta) {
+        // currentPlayer.score += delta
+        if (currentPlayer === this.playerOne) {
+            debugger;
+            this.playerOne.score += delta 
+            this.playerOneScoreCountElement.textContent = this.playerOne.score;
+            // debugger;
+        }
+        
+        if (currentPlayer === this.playerTwo) {
+            this.playerTwo.score += delta
+            this.playerTwoScoreCountElement.textContent = this.playerTwo.score;
+            // debugger;
+        }
+        // this.scoreCountElement.textContent = playerScore;
     }
 
-    getCategories () {
-        const categories = this.categoryIDs.map (categoryID => {
+    getCategories() {
+        const categories = this.categoryIDs.map(categoryID => {
             return new Promise((resolve, reject) => {
                 fetch(`https://jservice.io/api/category?id=${categoryID}`)
-                .then(res => res.json())
-                .then(data => {
-                    resolve(data);
-                })
+                    .then(res => res.json())
+                    .then(data => {
+                        resolve(data);
+                    })
             })
         });
 
@@ -77,7 +117,7 @@ class Game {
                     clues: []
                 }
 
-                shuffle(category.clues).slice(0,5).forEach((clue, idx) => {
+                shuffle(category.clues).slice(0, 5).forEach((clue, idx) => {
                     let clueID = categoryIdx + '-' + idx;
                     newCat.clues.push(clueID);
 
@@ -97,7 +137,7 @@ class Game {
         })
     }
 
-    renderCategory (category) {
+    renderCategory(category) {
         let col = document.createElement('div');
         col.classList.add('column');
         col.innerHTML = (
@@ -116,6 +156,7 @@ class Game {
     handleClueClick(e) {
         let clue = this.clues[e.target.dataset.clueId];
         e.target.classList.add('used');
+        this.inputContainerElement.classList.add('hide')
 
         // clear card and change current clue to the select clue (from the event)
         this.inputElement.value = "";
@@ -128,21 +169,72 @@ class Game {
 
         this.cardModalElement.classList.remove('showing-result');
         this.cardModalElement.classList.add('visible');
+        // this.formElement.classList.add('hide');
         this.inputElement.focus();
-        // debugger;
+
+        document.addEventListener('keyup', this.handlePlayerKey)
+        // document.removeEventListener('keyup', this.handlePlayerKey)
+            // if (event.code === 'KeyQ') {
+            //     this.inputElement.value = "";
+            //     document.removeEventListener('keyup')
+            //     console.log(event);
+            //     this.currentPlayer = this.playerOne
+            //     this.formElement.addEventListener('submit', event => {
+            //         this.handleFormSubmit(event);
+            //     })
+            // } else if (event.code === 'KeyP') {
+            //     this.inputElement.value = "";
+            //     console.log(event);
+            //     this.currentPlayer = this.playerTwo
+            //     this.formElement.addEventListener('submit', event => {
+            //         this.handleFormSubmit(event);
+            //     })
+            // }
+        this.formElement.addEventListener('submit', event => {
+            this.handleFormSubmit(event);
+        })
+
     }
 
-    handleFormSubmit (e) {
+    handlePlayerKey(event) {
+        if (event.code === 'KeyQ') {
+            this.inputElement.value = "";
+            document.removeEventListener('keyup', this.handlePlayerKey)
+            console.log(event);
+            this.currentPlayer = this.playerOne
+            this.inputContainerElement.classList.remove('hide');
+            this.playerInputTurnElement.textContent = `${this.currentPlayer.name}'s answer:`;
+            // this.formElement.addEventListener('submit', event => {
+            //     this.handleFormSubmit(event);
+            // })
+            debugger;
+        } else if (event.code === 'KeyP') {
+            this.inputElement.value = "";
+            document.removeEventListener('keyup', this.handlePlayerKey)
+            console.log(event);
+            this.currentPlayer = this.playerTwo
+            this.inputContainerElement.classList.remove('hide');
+            this.playerInputTurnElement.textContent = `${this.currentPlayer.name}'s answer:`;
+            // this.formElement.addEventListener('submit', event => {
+            //     this.handleFormSubmit(event);
+            // })
+            debugger;
+        }
+    }
+
+    handleFormSubmit(e) {
         e.preventDefault();
         // var isCorrect = this.fixAnswer(this.inputElement.value) === this.fixAnswer(this.currentClue.answer);
         var isCorrect = this.fixAnswer(this.inputElement.value, this.currentClue.answer)
-        // debugger;
+        debugger;
         // check if correct
         if (isCorrect) {
-            this.updateScore(this.currentClue.value)
+            this.updateScore(this.currentPlayer, this.currentClue.value);
+            this.currentPlayer = null;
         } else {
             this.currentClue.value = this.currentClue.value * -1;
-            this.updateScore(this.currentClue.value);
+            this.updateScore(this.currentPlayer, this.currentClue.value);
+            this.currentPlayer = null;
         }
 
         // reveal answer
@@ -173,7 +265,7 @@ class Game {
     //     return answer.trim();
     // }
 
-    revealAnswer (isCorrect) {
+    revealAnswer(isCorrect) {
         this.successTextElement.style.display = isCorrect ? "block" : "none";
         this.failTextElement.style.display = !isCorrect ? "block" : "none";
 
@@ -184,9 +276,9 @@ class Game {
         }, 2500);
     }
 
-    handleDisputeAnswer (e) {
+    handleDisputeAnswer(e) {
         const delta = this.currentClueValue * 2;
-        this.updateScore(delta);
+        this.updateScore(this.currentPlayer, delta);
         this.currentClueValue = 0;
     }
 }
@@ -194,4 +286,4 @@ class Game {
 // const game = new Game (document.querySelector('.app'), {});
 // game.playGame();
 
-export default Game
+export default twoPlayerGame

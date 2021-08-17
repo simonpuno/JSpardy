@@ -10,19 +10,39 @@
 </head>
 
 <body>
+    <div class="menu">
+        <h1 class="game-title-header">JSpardy!</h1>
+        <h2 class="select-categories">Select Your Categories</h2>
+        <button class="start-button">Start Game</button>
+        <button class="two-player-start-btn">Start Two-Player Game</button>
+        <ul class="categories"></ul>
+        <div class="bottom-menu-buttons">
+            <button class="random-category-button">Select Random Categories</button>
+            <button class="clear-selected-categories">Clear Category Selections</button>
+        </div>
+    </div>
+
+    <!-- <div class="two-player-name-screen">
+
+    </div> -->
+
+
     <div class="app">
-        <header>
+        <header class="top-header">
             <h1 class="game-title">JSpardy!</h1>
             <p class="score"> Score: <span class="score-count"></span></p>
         </header>
 
         <div class="board">
-
+            
         </div>
-
+        <div class="dispute-container">
+            <button class="dispute-btn">Dispute Answer</button>
+        </div>
         <div class="card-modal">
             <div class="card-modal-inner">
-                <div class="clue-text">
+                <h4 class="clue-category"></h4>
+                <h2 class="clue-text"></h2>
                     <form autocomplete="off">
                         <input type="text" name="user-answer">
                         <button type="submit">Answer</button>
@@ -35,10 +55,44 @@
                             </span>
                         </p>
                     </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="two-player-app">
+        <header class="top-header">
+            <p class="player-one-score">P1 Score: <span class="player-one-score-count"></span></p>
+            <h1 class="game-title">JSpardy!</h1>
+            <p class="player-two-score">P2 Score: <span class="player-two-score-count"></span></p>
+        </header>
+    
+        <div class="board">
+    
+        </div>
+        <div class="dispute-container">
+            <button class="dispute-btn">Dispute Answer</button>
+        </div>
+        <div class="card-modal">
+            <div class="card-modal-inner">
+                <h4 class="clue-category"></h4>
+                <h2 class="clue-text"></h2>
+                <div class="input-container">
+                    <p class="player-input-turn"></p>
+                    <form class ="two-player-input-form" autocomplete="off">
+                        <input type="text" name="user-answer">
+                        <button type="submit">Answer</button>
+                    </form>
+                </div>
+                <div class="result">
+                    <p class="result_success">CORRECT</p>
+                    <p class="result_fail">INCORRECT</p>
+                    <p class="result_correct-answer">
+                        The correct answer is <span class="result_correct-answer-text">
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
-
     </div>
 </body>
 </html>
