@@ -2,7 +2,7 @@ function shuffle(arr) { return arr.sort(() => Math.random() - 0.5) }
 
 class twoPlayerGame {
 
-    constructor(el, options) {
+    constructor(el, options, playerOne, playerTwo) {
 
         // Get categories IMPLEMENT CAT SELECTION
         this.categoryIDs = options || [50, 253, 176, 672];
@@ -14,19 +14,21 @@ class twoPlayerGame {
         // State
         this.currentClue = null;
         this.currentClueValue = null;
+        this.clueCount = null;
         this.currentPlayer = null;
         this.playerOne = {
-            name: 'playerOne',
+            name: playerOne || 'playerOne',
             score: 0
         };
         this.playerTwo = {
-            name: 'playerTwo',
+            name: playerTwo || 'playerTwo',
             score: 0
         };
 
         // HTML elements needed 
         this.menuElement = document.querySelector('.menu')
         this.boardElement = el.querySelector('.board')
+        this.appElement = document.querySelector('.two-player-app')
 
         this.playerOneScoreElement = el.querySelector('.player-one-score')
         this.playerTwoScoreElement = el.querySelector('.player-two-score')
@@ -52,7 +54,9 @@ class twoPlayerGame {
 
     playGame() {
 
+        
         // this.menuElement.classList.add('hide')
+        // this.appElement.classList.remove('hide')
         this.updateScore(this.playerOne, 0);
         this.updateScore(this.playerTwo, 0);
         this.getCategories();
@@ -85,7 +89,7 @@ class twoPlayerGame {
     updateScore(currentPlayer, delta) {
         // currentPlayer.score += delta
         if (currentPlayer === this.playerOne) {
-            debugger;
+            // debugger;
             this.playerOne.score += delta 
             this.playerOneScoreCountElement.textContent = this.playerOne.score;
             // debugger;
@@ -149,7 +153,7 @@ class twoPlayerGame {
             var clue = this.clues[clueID];
             ul.innerHTML += `<li><button data-clue-id=${clueID}>${clue.value}</button></li>`
         })
-
+        this.clueCount = Object.keys(this.clues).length;
         this.boardElement.appendChild(col);
     }
 
@@ -157,6 +161,7 @@ class twoPlayerGame {
         let clue = this.clues[e.target.dataset.clueId];
         e.target.classList.add('used');
         this.inputContainerElement.classList.add('hide')
+        this.clueCount -= 1;
 
         // clear card and change current clue to the select clue (from the event)
         this.inputElement.value = "";
@@ -207,7 +212,7 @@ class twoPlayerGame {
             // this.formElement.addEventListener('submit', event => {
             //     this.handleFormSubmit(event);
             // })
-            debugger;
+            // debugger;
         } else if (event.code === 'KeyP') {
             this.inputElement.value = "";
             document.removeEventListener('keyup', this.handlePlayerKey)
@@ -218,7 +223,7 @@ class twoPlayerGame {
             // this.formElement.addEventListener('submit', event => {
             //     this.handleFormSubmit(event);
             // })
-            debugger;
+            // debugger;
         }
     }
 
@@ -226,7 +231,7 @@ class twoPlayerGame {
         e.preventDefault();
         // var isCorrect = this.fixAnswer(this.inputElement.value) === this.fixAnswer(this.currentClue.answer);
         var isCorrect = this.fixAnswer(this.inputElement.value, this.currentClue.answer)
-        debugger;
+        // debugger;
         // check if correct
         if (isCorrect) {
             this.updateScore(this.currentPlayer, this.currentClue.value);
@@ -239,6 +244,14 @@ class twoPlayerGame {
 
         // reveal answer
         this.revealAnswer(isCorrect);
+
+        if (this.clueCount === 0) {
+            // debugger;
+            setTimeout(() => {
+                // alert('BANG!')
+                this.showEndScreen();
+            }, 3750);
+        };
     }
 
     fixAnswer(input, answer) {
@@ -274,12 +287,43 @@ class twoPlayerGame {
         setTimeout(() => {
             this.cardModalElement.classList.remove('visible');
         }, 2500);
+
+        // this.clueCount -= 1;
     }
 
     handleDisputeAnswer(e) {
         const delta = this.currentClueValue * 2;
         this.updateScore(this.currentPlayer, delta);
         this.currentClueValue = 0;
+    }
+
+    showEndScreen() {
+        const finalScoreModal = document.querySelector('.two-player-final-score-modal');
+        const overlay = document.querySelector('.overlay');
+        const restartGameButton = document.querySelector('.two-player-restart-game-btn')
+        const playerOneScoreText = document.querySelector('.player-one-score-text')
+        const playerTwoScoreText = document.querySelector('.player-two-score-text')
+        const winnerText = document.querySelector('.winner')
+        const menuElement = document.querySelector('.menu')
+        const appElement = document.querySelector('.two-player-app')
+
+        if (this.playerOne.score > this.playerTwo.score) {
+            winnerText.textContent = 'playerOne Wins!'
+        } else {
+            winnerText.textContent = 'playerTwo Wins!'
+        }
+
+        playerOneScoreText.textContent = `playerOne's final score is: ${this.playerOne.score}.`
+        playerTwoScoreText.textContent = `playerTwo's final score is: ${this.playerTwo.score}.`
+        finalScoreModal.classList.add('active');
+        overlay.classList.add('active');
+
+        restartGameButton.addEventListener('click', () => {
+            finalScoreModal.classList.remove('active');
+            overlay.classList.remove('active');
+            appElement.classList.add('hide');
+            menuElement.classList.remove('hide');
+        })
     }
 }
 

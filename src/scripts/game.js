@@ -15,6 +15,7 @@ class Game {
         this.currentClue = null;
         this.currentClueValue = null;
         this.score = 0;
+        this.clueCount = null;
 
         // HTML elements needed 
         this.menuElement = document.querySelector('.menu')
@@ -109,7 +110,7 @@ class Game {
             var clue = this.clues[clueID];
             ul.innerHTML += `<li><button data-clue-id=${clueID}>${clue.value}</button></li>`
         })
-
+        this.clueCount = Object.keys(this.clues).length;
         this.boardElement.appendChild(col);
     }
 
@@ -147,6 +148,15 @@ class Game {
 
         // reveal answer
         this.revealAnswer(isCorrect);
+        // this.clueCount -= 1;
+        if (this.clueCount === 0) {
+            // debugger;
+            setTimeout(() => {
+                // alert('BANG!')
+                this.showEndScreen();
+            }, 3750);
+        };
+    
     }
 
     fixAnswer(input, answer) {
@@ -179,9 +189,14 @@ class Game {
 
         this.cardModalElement.classList.add('showing-result');
 
+        
+
         setTimeout(() => {
             this.cardModalElement.classList.remove('visible');
         }, 2500);
+
+        this.clueCount -= 1;
+        
     }
 
     handleDisputeAnswer (e) {
@@ -189,6 +204,41 @@ class Game {
         this.updateScore(delta);
         this.currentClueValue = 0;
     }
+
+    showEndScreen() {
+        const finalScoreModal = document.querySelector('.final-score-modal');
+        const overlay = document.querySelector('.overlay');
+        const restartGameButton = document.querySelector('.restart-game-btn')
+        const finalScoreText = document.querySelector('.final-score-text')
+        const menuElement = document.querySelector('.menu')
+        const appElement = document.querySelector('.app')
+
+        finalScoreText.textContent = `Your final score is: ${this.score}`
+        finalScoreModal.classList.add('active');
+        overlay.classList.add('active');
+
+        restartGameButton.addEventListener('click', () => {
+            finalScoreModal.classList.remove('active');
+            overlay.classList.remove('active');
+            appElement.classList.add('hide');
+            menuElement.classList.remove('hide');
+        })
+    }
+
+    // handleInstructionsClick() {
+    //   
+    //     this.instructionsElement.classList.add('active');
+    //     this.overlayElement.classList.add('active');
+
+    //     // const p = document.querySelector('.instructions-content');
+    //     // p.textContent = '  '
+    //     // put text into html
+    //     this.closeInstructionsButton.addEventListener('click', () => {
+    //         // this.instructionsElement.classList.add('hide');
+    //         this.instructionsElement.classList.remove('active')
+    //         this.overlayElement.classList.remove('active')
+    //     })
+    // }
 }
 
 // const game = new Game (document.querySelector('.app'), {});

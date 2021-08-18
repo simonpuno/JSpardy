@@ -11,10 +11,18 @@
 
 <body>
     <div class="menu">
-        <h1 class="game-title-header">JSpardy!</h1>
+        <div class="title-container">
+            <!-- <div>
+                <button>Sound</button>
+            </div> -->
+            <h1 class="game-title-header">JSpardy!</h1>
+            <div>
+                <button class="instructions-btn">Instructions</button>
+            </div>
+        </div>
         <h2 class="select-categories">Select Your Categories</h2>
-        <button class="start-button">Start Game</button>
-        <button class="two-player-start-btn">Start Two-Player Game</button>
+        <button class="start-button">Start 1-Player Game</button>
+        <button class="two-player-start-btn">Start 2-Player Game</button>
         <ul class="categories"></ul>
         <div class="bottom-menu-buttons">
             <button class="random-category-button">Select Random Categories</button>
@@ -22,9 +30,37 @@
         </div>
     </div>
 
-    <!-- <div class="two-player-name-screen">
 
-    </div> -->
+    <div class="instructions-container"> <!--hide-->
+        <div class="instructions-header">
+            <h2>Instructions</h2>
+            <button class="close-instructions">&times;</button>
+        </div>
+        <div class="instructions-content">
+            <h5 class="instructions-intro">Welcome to JSpardy! This game is an online version of the game show, Jeopardy!, written entirely in JavaScript, HTML,
+            and CSS. The rules are simple.</h5>
+            <ul class="instructions-list">
+                <li>First, select your categories. You may have as many or as few as you'd like.</li>
+                <li>Next, select if you are playing with one or two players. Once you click 'start game', the game board will appear.</li>
+                <li>Select clues and, for correct answers, you will receive the point value on the clue card. However, incorrect answers
+                will deduct that value from your score.</li>
+                <li>If you feel your answer was misjudged as incorrect, click the "Dispute Answer" button to receive your points back.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="overlay"></div>
+
+    <div class="name-screen">
+        <div class="name-screen-container">
+            <label>Player 1 Name:
+                <input type="text" class="player-one-name">
+            </label>
+            <label>Player 2 Name:
+                <input type="text" class="player-two-name">
+            </label>
+            <button class="begin-game-btn">Begin Game</button>
+        </div>
+    </div>
 
 
     <div class="app">
@@ -94,5 +130,23 @@
             </div>
         </div>
     </div>
+
+    <div class="final-score-modal">
+        <div class="final-score-container">
+            <h2>Thanks for playing!</h2>
+            <h3 class="final-score-text"></h3>
+            <button class="restart-game-btn">New Game</button>
+        </div>
+    </div>
+
+    <div class="two-player-final-score-modal">
+        <div class="two-player-final-score-container">
+            <h2 class="winner"></h2>
+            <h3 class="player-one-score-text"></h3>
+            <h3 class="player-two-score-text"></h3>
+            <button class="two-player-restart-game-btn">New Game</button>
+        </div>
+    </div>
+
 </body>
 </html>

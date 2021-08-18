@@ -8,6 +8,9 @@ class Menu {
         this.categoryListElement = document.querySelector('.categories')
         this.randomCategoryButton = document.querySelector('.random-category-button')
         this.clearCategoriesButton = document.querySelector('.clear-selected-categories')
+        this.instructionsElement = document.querySelector('.instructions-container')
+        this.closeInstructionsButton = document.querySelector('.close-instructions')
+        this.overlayElement = document.querySelector('.overlay')
         // this.categoryIDs = [7, 442, 1892, 4483, 88, 67, 109, 114, 176, 42, 582, 49, 561, 770, 253, 83, 184, 211, 51, 672, 78, 574, 680, 50, 309, 249, 218, 17, 197, 2538, 1800]
         this.selectedCategoryIDs = []
         this.categories = {
@@ -22,6 +25,7 @@ class Menu {
             'Business & Industry': 176,
             'Colleges & Universities': 672,
             'Fashion': 26,
+            'Fruits & Vegetables': 777,
             'Food': 49,
             'Food & Drink': 253,
             'Geography': 88,
@@ -41,6 +45,7 @@ class Menu {
             'Sports': 42,
             'State Capitals': 109,
             'Television': 67,
+            'Travel & Tourism': 369,
             'U.S. Cities': 7,
             'U.S. Geography': 582,
             'U.S. History': 50,
@@ -98,6 +103,21 @@ class Menu {
         if (!this.selectedCategoryIDs.includes(selectedCategoryID)) {
             this.selectedCategoryIDs.push(selectedCategoryID);
         }
+    }
+
+    handleInstructionsClick() {
+        // this.instructionsElement.classList.remove('hide');
+        this.instructionsElement.classList.add('active');
+        this.overlayElement.classList.add('active');
+
+        // const p = document.querySelector('.instructions-content');
+        // p.textContent = '  '
+        // put text into html
+        this.closeInstructionsButton.addEventListener('click', () => {
+            // this.instructionsElement.classList.add('hide');
+            this.instructionsElement.classList.remove('active')
+            this.overlayElement.classList.remove('active')
+        })
     }
 }
 
