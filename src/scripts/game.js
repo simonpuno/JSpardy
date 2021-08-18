@@ -38,6 +38,7 @@ class Game {
     playGame () {
 
         // this.menuElement.classList.add('hide')
+        // this.categories = [];
         this.updateScore(0);
         this.getCategories();
         this.boardElement.addEventListener('click', event => {
@@ -160,6 +161,7 @@ class Game {
     }
 
     fixAnswer(input, answer) {
+        if (input === "") return false;
         const lowInput = input.toLowerCase();
         const lowAnswer = answer.toLowerCase();
         const regexInput = '\\b' + lowInput + '\\b'

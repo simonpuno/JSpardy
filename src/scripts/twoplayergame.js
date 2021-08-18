@@ -17,11 +17,11 @@ class twoPlayerGame {
         this.clueCount = null;
         this.currentPlayer = null;
         this.playerOne = {
-            name: playerOne || 'playerOne',
+            name: playerOne || 'Player 1',
             score: 0
         };
         this.playerTwo = {
-            name: playerTwo || 'playerTwo',
+            name: playerTwo || 'Player 2',
             score: 0
         };
 
@@ -57,6 +57,10 @@ class twoPlayerGame {
         
         // this.menuElement.classList.add('hide')
         // this.appElement.classList.remove('hide')
+        this.playerOneScoreElement.innerHTML = `${this.playerOne.name}'s Score: <span class="player-one-score-count"></span>`
+        this.playerTwoScoreElement.innerHTML = `${this.playerTwo.name}'s Score: <span class="player-two-score-count"></span>`
+        this.playerOneScoreCountElement = document.querySelector('.player-one-score-count')
+        this.playerTwoScoreCountElement = document.querySelector('.player-two-score-count')
         this.updateScore(this.playerOne, 0);
         this.updateScore(this.playerTwo, 0);
         this.getCategories();
@@ -205,7 +209,7 @@ class twoPlayerGame {
         if (event.code === 'KeyQ') {
             this.inputElement.value = "";
             document.removeEventListener('keyup', this.handlePlayerKey)
-            console.log(event);
+            // console.log(event);
             this.currentPlayer = this.playerOne
             this.inputContainerElement.classList.remove('hide');
             this.playerInputTurnElement.textContent = `${this.currentPlayer.name}'s answer:`;
@@ -216,7 +220,7 @@ class twoPlayerGame {
         } else if (event.code === 'KeyP') {
             this.inputElement.value = "";
             document.removeEventListener('keyup', this.handlePlayerKey)
-            console.log(event);
+            // console.log(event);
             this.currentPlayer = this.playerTwo
             this.inputContainerElement.classList.remove('hide');
             this.playerInputTurnElement.textContent = `${this.currentPlayer.name}'s answer:`;
@@ -255,6 +259,7 @@ class twoPlayerGame {
     }
 
     fixAnswer(input, answer) {
+        if (input === "") return false;
         const lowInput = input.toLowerCase();
         const lowAnswer = answer.toLowerCase();
         const regexInput = '\\b' + lowInput + '\\b'
@@ -308,13 +313,13 @@ class twoPlayerGame {
         const appElement = document.querySelector('.two-player-app')
 
         if (this.playerOne.score > this.playerTwo.score) {
-            winnerText.textContent = 'playerOne Wins!'
+            winnerText.textContent = `${this.playerOne.name} Wins!`
         } else {
-            winnerText.textContent = 'playerTwo Wins!'
+            winnerText.textContent = `${this.playerTwo.name} Wins!`
         }
 
-        playerOneScoreText.textContent = `playerOne's final score is: ${this.playerOne.score}.`
-        playerTwoScoreText.textContent = `playerTwo's final score is: ${this.playerTwo.score}.`
+        playerOneScoreText.textContent = `${this.playerOne.name}'s final score is: ${this.playerOne.score}.`
+        playerTwoScoreText.textContent = `${this.playerTwo.name}'s final score is: ${this.playerTwo.score}.`
         finalScoreModal.classList.add('active');
         overlay.classList.add('active');
 

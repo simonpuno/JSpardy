@@ -4,29 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        @font-face {
+            font-family: gyparody;
+            src: url(src/gyparody.ttf) format(truetype);
+        }
+    </style>
+    <link rel="icon" href="src/trebek.png">
     <link rel="stylesheet" href="./dist/main.css" />
+    <script src="https://kit.fontawesome.com/9323162f3d.js" crossorigin="anonymous"></script>
     <script src="./dist/main.js"></script>
     <title>JSpardy!</title>
 </head>
 
 <body>
+    <div class="heading-container">
+        <div class="heading-flex-container">
+            <div>
+                <audio class="audio">
+                    <source src="src/Jeopardy Theme Song Remix [Prod. by Attic Stein].mp3" type="audio/mpeg">
+                </audio>
+                <i class="fas fa-volume-up audio-hide"></i>
+                <i class="fas fa-volume-mute"></i>
+                <!-- <button class="audio-btn">Sound On</button> -->
+            </div>
+            <div>
+                <i class="fas fa-question-circle"></i>
+                <!-- <button class="instructions-btn"></button> -->
+            </div>
+            <a href="https://github.com/simonpuno" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </div>
+
     <div class="menu">
         <div class="title-container">
             <!-- <div>
                 <button>Sound</button>
             </div> -->
             <h1 class="game-title-header">JSpardy!</h1>
-            <div>
+            <!-- <div>
                 <button class="instructions-btn">Instructions</button>
-            </div>
+            </div> -->
         </div>
         <h2 class="select-categories">Select Your Categories</h2>
-        <button class="start-button">Start 1-Player Game</button>
-        <button class="two-player-start-btn">Start 2-Player Game</button>
+        <button class="start-button">1-Player <span class="play-icon"><i class="fas fa-play"></i></span></button>
+        <button class="two-player-start-btn">2-Player <span class="play-icon"><i class="fas fa-play"></i></span></button>
         <ul class="categories"></ul>
         <div class="bottom-menu-buttons">
-            <button class="random-category-button">Select Random Categories</button>
-            <button class="clear-selected-categories">Clear Category Selections</button>
+            <button class="random-category-button">Select Random</button>
+            <button class="clear-selected-categories">Clear Selections</button>
         </div>
     </div>
 
@@ -41,7 +69,7 @@
             and CSS. The rules are simple.</h5>
             <ul class="instructions-list">
                 <li>First, select your categories. You may have as many or as few as you'd like.</li>
-                <li>Next, select if you are playing with one or two players. Once you click 'start game', the game board will appear.</li>
+                <li>Next, select if you are playing with one or two players. The game board will appear.</li>
                 <li>Select clues and, for correct answers, you will receive the point value on the clue card. However, incorrect answers
                 will deduct that value from your score.</li>
                 <li>If you feel your answer was misjudged as incorrect, click the "Dispute Answer" button to receive your points back.</li>
@@ -52,13 +80,19 @@
 
     <div class="name-screen">
         <div class="name-screen-container">
-            <label>Player 1 Name:
-                <input type="text" class="player-one-name">
-            </label>
-            <label>Player 2 Name:
-                <input type="text" class="player-two-name">
-            </label>
-            <button class="begin-game-btn">Begin Game</button>
+            <h5>Player 1: Use the 'Q' key to buzz in when a clue appears. </h5>
+            <h5>Player 2: Use the 'P' key to buzz in when a clue appears. </h5>
+            <div class="p1-container">
+                <label>Player 1 Name:</label>
+                <input type="text" class="player-one-name"> 
+            </div>
+            <br>
+            <div class="p2-container">
+                <label>Player 2 Name:</label>
+                <input type="text" class="player-two-name"> 
+            </div>
+            <br>
+            <button class="begin-game-btn">Start</button>
         </div>
     </div>
 
@@ -97,9 +131,9 @@
 
     <div class="two-player-app">
         <header class="top-header">
-            <p class="player-one-score">P1 Score: <span class="player-one-score-count"></span></p>
+            <p class="player-one-score"></p>
             <h1 class="game-title">JSpardy!</h1>
-            <p class="player-two-score">P2 Score: <span class="player-two-score-count"></span></p>
+            <p class="player-two-score"></p>
         </header>
     
         <div class="board">
