@@ -209,6 +209,7 @@ class twoPlayerGame {
 
     handlePlayerKey(event) {
         if (event.code === 'KeyQ') {
+            this.playerInputTurnElement.classList.remove('hide')
             this.inputElement.value = "";
             document.removeEventListener('keyup', this.handlePlayerKey)
             // console.log(event);
@@ -220,6 +221,7 @@ class twoPlayerGame {
             // })
             // debugger;
         } else if (event.code === 'KeyP') {
+            this.playerInputTurnElement.classList.remove('hide')
             this.inputElement.value = "";
             document.removeEventListener('keyup', this.handlePlayerKey)
             // console.log(event);
@@ -301,6 +303,7 @@ class twoPlayerGame {
 
     revealAnswer(isCorrect) {
         // this.successTextElement.style.display = isCorrect ? "block" : "none";
+        this.playerInputTurnElement.classList.add('hide')
         this.failTextElement.style.display = !isCorrect ? "block" : "none";
         
         this.skipTextElement.classList.add('hide')
@@ -309,6 +312,8 @@ class twoPlayerGame {
         } else if (isCorrect && this.skip === true) {
             this.successTextElement.style.display = "none"
             this.skip = false;
+        } else if (!isCorrect) {
+            this.successTextElement.style.display = "none"
         }
         this.cardModalElement.classList.add('showing-result');
 
@@ -340,7 +345,7 @@ class twoPlayerGame {
             winnerText.textContent = `${this.playerOne.name} Wins!`
         } else if (this.playerTwo.score > this.playerOne.score) {
             winnerText.textContent = `${this.playerTwo.name} Wins!`
-        } else {
+        } else if (this.playerOne.score === this.playerTwo.score) {
             winnerText.textContent = "It's a tie!"
         }
 

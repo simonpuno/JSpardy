@@ -197,11 +197,14 @@ class Game {
     revealAnswer (isCorrect) {
         // this.successTextElement.style.display = isCorrect ? "block" : "none";
         this.skipTextElement.classList.add('hide')
+
         if (isCorrect && this.skip === false) {
             this.successTextElement.style.display = "block"
         } else if (isCorrect && this.skip === true) {
             this.successTextElement.style.display = "none"
             this.skip = false;
+        } else if (!isCorrect) {
+            this.successTextElement.style.display = "none"
         }
         this.failTextElement.style.display = !isCorrect ? "block" : "none";
 
