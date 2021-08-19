@@ -231,6 +231,17 @@ body {
 //     justify-content: center;
 // }
 
+.top-btn {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.top-btn > .misc-btn {
+    color: white;
+    font-size: 18px;
+    background-color: #2A68C6;
+}
+
 .game-title-header {
     font-family: gyparody;
     font-size: 80px;
