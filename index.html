@@ -68,10 +68,10 @@
             <h5 class="instructions-intro">Welcome to JSpardy! This game is an online version of the game show, Jeopardy!, written entirely in JavaScript, HTML,
             and CSS. The rules are simple.</h5>
             <ul class="instructions-list">
-                <li>First, select your categories. You may have as many or as few as you'd like.</li>
-                <li>Next, select either one or two players and the game board will appear.</li>
-                <li>Select clues and, for correct answers, you will receive the point value on the clue card. Incorrect answers
-                will deduct that value from your score.</li>
+                <li>Select your categories. You may have as many or as few as you'd like.</li>
+                <li>Select either one or two players and the game board will appear.</li>
+                <li>Select clues and, for correct answers, you will receive the point value on the card. Incorrect answers
+                will deduct that value from your score. Submit a blank answer to skip with no penalty.</li>
                 <li>If you feel your answer was misjudged as incorrect, click the "Dispute Answer" button to receive your points back.</li>
             </ul>
         </div>
@@ -117,6 +117,7 @@
                         <input type="text" name="user-answer">
                         <button type="submit">Answer</button>
                     </form>
+                    <p class="skip-text">Submit a blank answer to skip</p>
                     <div class="result">
                         <p class="result_success">CORRECT</p>
                         <p class="result_fail">INCORRECT</p>

@@ -16,6 +16,7 @@ class Game {
         this.currentClueValue = null;
         this.score = 0;
         this.clueCount = null;
+        this.skip = false;
 
         // HTML elements needed 
         this.menuElement = document.querySelector('.menu')
@@ -32,6 +33,7 @@ class Game {
         this.resultTextElement = el.querySelector('.result_correct-answer-text')
         this.successTextElement = el.querySelector('.result_success')
         this.failTextElement = el.querySelector('.result_fail')
+        this.skipTextElement = el.querySelector('.skip-text')
         this.disputeButtonElement = el.querySelector('.dispute-btn')
     }
 
@@ -82,6 +84,8 @@ class Game {
                 shuffle(category.clues).slice(0,5).forEach((clue, idx) => {
                     let clueID = categoryIdx + '-' + idx;
                     newCat.clues.push(clueID);
+                    clue.answer = clue.answer.replace("<i>", "");
+                    clue.answer = clue.answer.replace("</i>", "");
 
                     this.clues[clueID] = {
                         question: clue.question,
@@ -140,8 +144,10 @@ class Game {
         var isCorrect = this.fixAnswer(this.inputElement.value, this.currentClue.answer)
         // debugger;
         // check if correct
-        if (isCorrect) {
+        if (isCorrect && this.skip === false) {
             this.updateScore(this.currentClue.value)
+        } else if (isCorrect && this.skip === true) {
+
         } else {
             this.currentClue.value = this.currentClue.value * -1;
             this.updateScore(this.currentClue.value);
@@ -161,7 +167,10 @@ class Game {
     }
 
     fixAnswer(input, answer) {
-        if (input === "") return false;
+        if (input === "") {
+            this.skip = true;
+            return true;
+        };
         const lowInput = input.toLowerCase();
         const lowAnswer = answer.toLowerCase();
         const regexInput = '\\b' + lowInput + '\\b'
@@ -171,8 +180,8 @@ class Game {
 
     // fixAnswer (str) {
     //     var answer = str.toLowerCase();
-    //     answer = answer.replace("<i>", "");
-    //     answer = answer.replace("</i>", "");
+        // answer = answer.replace("<i>", "");
+        // answer = answer.replace("</i>", "");
     //     answer = answer.replace(/ /g, "");
     //     answer = answer.replace("a", "");
     //     // answer = answer.replace(/a/, "");
@@ -186,7 +195,14 @@ class Game {
     // }
 
     revealAnswer (isCorrect) {
-        this.successTextElement.style.display = isCorrect ? "block" : "none";
+        // this.successTextElement.style.display = isCorrect ? "block" : "none";
+        this.skipTextElement.classList.add('hide')
+        if (isCorrect && this.skip === false) {
+            this.successTextElement.style.display = "block"
+        } else if (isCorrect && this.skip === true) {
+            this.successTextElement.style.display = "none"
+            this.skip = false;
+        }
         this.failTextElement.style.display = !isCorrect ? "block" : "none";
 
         this.cardModalElement.classList.add('showing-result');
@@ -194,6 +210,7 @@ class Game {
         
 
         setTimeout(() => {
+            this.skipTextElement.classList.remove('hide')
             this.cardModalElement.classList.remove('visible');
         }, 2500);
 
