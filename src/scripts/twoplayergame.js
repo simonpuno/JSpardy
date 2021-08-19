@@ -338,8 +338,10 @@ class twoPlayerGame {
 
         if (this.playerOne.score > this.playerTwo.score) {
             winnerText.textContent = `${this.playerOne.name} Wins!`
-        } else {
+        } else if (this.playerTwo.score > this.playerOne.score) {
             winnerText.textContent = `${this.playerTwo.name} Wins!`
+        } else {
+            winnerText.textContent = "It's a tie!"
         }
 
         playerOneScoreText.textContent = `${this.playerOne.name}'s final score is: ${this.playerOne.score}.`
