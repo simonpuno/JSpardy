@@ -16,10 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const appElement = document.querySelector('.app')
     const twoPlayerAppElement = document.querySelector('.two-player-app')
     const instructionsButton = document.querySelector('.fa-question-circle')
+    const infoButton = document.querySelector('.fa-info-circle')
     const beginGameButton = document.querySelector('.begin-game-btn')
 
     instructionsButton.addEventListener('click', () => {
         menu.handleInstructionsClick();
+    })
+
+    infoButton.addEventListener('click', () => {
+        menu.handleInfoClick();
     })
 
     playGameButton.addEventListener('click', e => {
