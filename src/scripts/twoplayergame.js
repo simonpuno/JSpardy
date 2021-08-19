@@ -355,10 +355,11 @@ class twoPlayerGame {
         overlay.classList.add('active');
 
         restartGameButton.addEventListener('click', () => {
-            finalScoreModal.classList.remove('active');
-            overlay.classList.remove('active');
-            appElement.classList.add('hide');
-            menuElement.classList.remove('hide');
+            // finalScoreModal.classList.remove('active');
+            // overlay.classList.remove('active');
+            // appElement.classList.add('hide');
+            // menuElement.classList.remove('hide');
+            location.reload();
         })
     }
 }
