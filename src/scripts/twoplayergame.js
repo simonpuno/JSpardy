@@ -16,6 +16,7 @@ class twoPlayerGame {
         this.currentClueValue = null;
         this.clueCount = null;
         this.currentPlayer = null;
+        this.skip = false;
         this.playerOne = {
             name: playerOne || 'Player 1',
             score: 0
@@ -47,6 +48,7 @@ class twoPlayerGame {
         this.resultTextElement = el.querySelector('.result_correct-answer-text')
         this.successTextElement = el.querySelector('.result_success')
         this.failTextElement = el.querySelector('.result_fail')
+        this.skipTextElement = el.querySelector('.skip-text')
         this.disputeButtonElement = el.querySelector('.dispute-btn')
 
         this.handlePlayerKey = this.handlePlayerKey.bind(this)
@@ -237,15 +239,25 @@ class twoPlayerGame {
         var isCorrect = this.fixAnswer(this.inputElement.value, this.currentClue.answer)
         // debugger;
         // check if correct
-        if (isCorrect) {
-            this.updateScore(this.currentPlayer, this.currentClue.value);
+        // if (isCorrect) {
+        //     this.updateScore(this.currentPlayer, this.currentClue.value);
+        //     this.currentPlayer = null;
+        // } else {
+        //     this.currentClue.value = this.currentClue.value * -1;
+        //     this.updateScore(this.currentPlayer, this.currentClue.value);
+        //     this.currentPlayer = null;
+        // }
+
+        if (isCorrect && this.skip === false) {
+            this.updateScore(this.currentPlayer, this.currentClue.value)
             this.currentPlayer = null;
+        } else if (isCorrect && this.skip === true) {
+
         } else {
             this.currentClue.value = this.currentClue.value * -1;
             this.updateScore(this.currentPlayer, this.currentClue.value);
             this.currentPlayer = null;
         }
-
         // reveal answer
         this.revealAnswer(isCorrect);
 
@@ -259,7 +271,11 @@ class twoPlayerGame {
     }
 
     fixAnswer(input, answer) {
-        if (input === "") return false;
+        // if (input === "") return false;
+        if (input === "") {
+            this.skip = true;
+            return true;
+        };
         const lowInput = input.toLowerCase();
         const lowAnswer = answer.toLowerCase();
         const regexInput = '\\b' + lowInput + '\\b'
@@ -284,12 +300,20 @@ class twoPlayerGame {
     // }
 
     revealAnswer(isCorrect) {
-        this.successTextElement.style.display = isCorrect ? "block" : "none";
+        // this.successTextElement.style.display = isCorrect ? "block" : "none";
         this.failTextElement.style.display = !isCorrect ? "block" : "none";
-
+        
+        this.skipTextElement.classList.add('hide')
+        if (isCorrect && this.skip === false) {
+            this.successTextElement.style.display = "block"
+        } else if (isCorrect && this.skip === true) {
+            this.successTextElement.style.display = "none"
+            this.skip = false;
+        }
         this.cardModalElement.classList.add('showing-result');
 
         setTimeout(() => {
+            this.skipTextElement.classList.remove('hide');
             this.cardModalElement.classList.remove('visible');
         }, 2500);
 
