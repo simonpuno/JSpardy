@@ -480,6 +480,66 @@ body {
     // padding-bottom: 2%;
 }
 
+.warning-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 2px solid white;
+    border-radius: 10px;
+    z-index: 15;
+    background-color: white;
+    color: white;
+    // width: 500px;
+    // height: 500px;
+    max-height: 77%;
+    max-width: 75%;
+    // background-color: #2A68C6;
+    background-image: linear-gradient(135deg, #4188fa, #2f66bd);
+    text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+    // font-weight: bold;
+}
+
+.warning-container.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.warning-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 15px;
+    border-bottom: 2px solid #003d9e;
+    height: 3em;
+}
+
+.warning-container button {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.warning-container button:hover {
+    cursor: pointer;
+}
+
+.warning-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1em;
+    margin-right: 1em;
+    text-align: left;
+}
+
+.warning-intro {
+    margin-block: .1em;
+    margin-top: 7px;
+    margin-bottom: 5px;
+}
+
 .overlay {
     position: fixed;
     opacity: 0;
@@ -686,7 +746,7 @@ body {
 //     text-shadow: 0px 0px 0px transparent;
 // }
 
-.fas:hover {
+.fas:hover:not(.warning-question) {
     cursor: pointer;
 }
 .fa-github {
@@ -696,7 +756,9 @@ body {
 .fa-question-circle {
     color: white;
 }
-
+// .warning-question {
+//     cursor: none;
+// }
 .audio-hide {
     position: absolute;
 

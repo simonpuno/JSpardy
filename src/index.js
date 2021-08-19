@@ -26,27 +26,35 @@ document.addEventListener("DOMContentLoaded", () => {
     infoButton.addEventListener('click', () => {
         menu.handleInfoClick();
     })
-
+    
     playGameButton.addEventListener('click', e => {
-        menuElement.classList.add('hide')
-        appElement.classList.remove('hide')
-        const game = new Game(document.querySelector('.app'), menu.selectedCategoryIDs);
-        game.playGame();
+        if (menu.selectedCategoryIDs.length > 0) {
+            menuElement.classList.add('hide')
+            appElement.classList.remove('hide')
+            const game = new Game(document.querySelector('.app'), menu.selectedCategoryIDs);
+            game.playGame();
+        } else {
+            menu.handleWarningClick();
+        }
     })
 
     playTwoPlayerGameButton.addEventListener('click', e => {
         // menuElement.classList.add('hide')
         // twoPlayerAppElement.classList.remove('hide')
-        const players = new Players(); 
-        players.handleNameScreenModal();
-        // const game = new twoPlayerGame(document.querySelector('.two-player-app'), menu.selectedCategoryIDs);
-        // game.playGame();
-        beginGameButton.addEventListener('click', () => {
-            menuElement.classList.add('hide')
-            twoPlayerAppElement.classList.remove('hide')
-            const game = new twoPlayerGame(document.querySelector('.two-player-app'), menu.selectedCategoryIDs, players.playerOne, players.playerTwo);
-            game.playGame();
-        })
+        if (menu.selectedCategoryIDs.length > 0) {
+            const players = new Players(); 
+            players.handleNameScreenModal();
+            // const game = new twoPlayerGame(document.querySelector('.two-player-app'), menu.selectedCategoryIDs);
+            // game.playGame();
+            beginGameButton.addEventListener('click', () => {
+                menuElement.classList.add('hide')
+                twoPlayerAppElement.classList.remove('hide')
+                const game = new twoPlayerGame(document.querySelector('.two-player-app'), menu.selectedCategoryIDs, players.playerOne, players.playerTwo);
+                game.playGame();
+            })
+        } else {
+            menu.handleWarningClick();
+        }
     })
 
     // beginGameButton.addEventListener('click', () => {

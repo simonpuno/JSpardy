@@ -12,6 +12,8 @@ class Menu {
         this.closeInstructionsButton = document.querySelector('.close-instructions')
         this.infoElement = document.querySelector('.info-container')
         this.closeInfoButton = document.querySelector('.close-info')
+        this.warningElement = document.querySelector('.warning-container')
+        this.closeWarningButton = document.querySelector('.close-warning')
         this.overlayElement = document.querySelector('.overlay')
         // this.categoryIDs = [7, 442, 1892, 4483, 88, 67, 109, 114, 176, 42, 582, 49, 561, 770, 253, 83, 184, 211, 51, 672, 78, 574, 680, 50, 309, 249, 218, 17, 197, 2538, 1800]
         this.selectedCategoryIDs = []
@@ -128,6 +130,16 @@ class Menu {
         
         this.closeInfoButton.addEventListener('click', () => {
             this.infoElement.classList.remove('active');
+            this.overlayElement.classList.remove('active')
+        })
+    }
+
+    handleWarningClick() {
+        this.warningElement.classList.add('active');
+        this.overlayElement.classList.add('active');
+
+        this.closeWarningButton.addEventListener('click', () => {
+            this.warningElement.classList.remove('active');
             this.overlayElement.classList.remove('active')
         })
     }
