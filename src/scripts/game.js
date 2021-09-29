@@ -35,12 +35,10 @@ class Game {
         this.failTextElement = el.querySelector('.result_fail')
         this.skipTextElement = el.querySelector('.skip-text')
         this.disputeButtonElement = el.querySelector('.dispute-btn')
+        this.logo = el.querySelector('.game-title')
     }
 
     playGame () {
-
-        // this.menuElement.classList.add('hide')
-        // this.categories = [];
         this.updateScore(0);
         this.getCategories();
         this.boardElement.addEventListener('click', event => {
@@ -55,6 +53,10 @@ class Game {
 
         this.disputeButtonElement.addEventListener('click', event => {
             this.handleDisputeAnswer(event);
+        })
+
+        this.logo.addEventListener('click', event => {
+            location.reload();
         })
     }
 
@@ -195,7 +197,6 @@ class Game {
     // }
 
     revealAnswer (isCorrect) {
-        // this.successTextElement.style.display = isCorrect ? "block" : "none";
         this.skipTextElement.classList.add('hide')
 
         if (isCorrect && this.skip === false) {
@@ -240,31 +241,10 @@ class Game {
         overlay.classList.add('active');
 
         restartGameButton.addEventListener('click', () => {
-            // finalScoreModal.classList.remove('active');
-            // overlay.classList.remove('active');
-            // appElement.classList.add('hide');
-            // menuElement.classList.remove('hide');
             location.reload();
         })
     }
 
-    // handleInstructionsClick() {
-    //   
-    //     this.instructionsElement.classList.add('active');
-    //     this.overlayElement.classList.add('active');
-
-    //     // const p = document.querySelector('.instructions-content');
-    //     // p.textContent = '  '
-    //     // put text into html
-    //     this.closeInstructionsButton.addEventListener('click', () => {
-    //         // this.instructionsElement.classList.add('hide');
-    //         this.instructionsElement.classList.remove('active')
-    //         this.overlayElement.classList.remove('active')
-    //     })
-    // }
 }
-
-// const game = new Game (document.querySelector('.app'), {});
-// game.playGame();
 
 export default Game

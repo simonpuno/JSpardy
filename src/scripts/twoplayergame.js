@@ -50,7 +50,7 @@ class twoPlayerGame {
         this.failTextElement = el.querySelector('.result_fail')
         this.skipTextElement = el.querySelector('.skip-text')
         this.disputeButtonElement = el.querySelector('.dispute-btn')
-
+        this.logo = el.querySelector('.game-title')
         this.handlePlayerKey = this.handlePlayerKey.bind(this)
     }
 
@@ -70,6 +70,10 @@ class twoPlayerGame {
             if (event.target.dataset.clueId) {
                 this.handleClueClick(event);
             }
+        })
+
+        this.logo.addEventListener('click', event => {
+            location.reload();
         })
 
         // this.formElement.addEventListener('submit', event => {
