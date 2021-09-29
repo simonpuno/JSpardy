@@ -106,6 +106,10 @@ class Menu {
         e.target.classList.add('selected-category');
         if (!this.selectedCategoryIDs.includes(selectedCategoryID)) {
             this.selectedCategoryIDs.push(selectedCategoryID);
+        } else if (this.selectedCategoryIDs.includes(selectedCategoryID)) {
+            this.selectedCategoryIDs = this.selectedCategoryIDs.filter(id => (id !== selectedCategoryID));
+            const li = document.querySelector(`[data-category-id='${selectedCategoryID}']`);
+            li.classList.remove('selected-category');
         }
     }
 
