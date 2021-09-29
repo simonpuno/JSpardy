@@ -214,6 +214,9 @@ body {
   font-family: gyparody;
   font-size: 50px;
 }
+.game-title:hover {
+  cursor: pointer;
+}
 
 .player-one-score, .player-two-score {
   display: flex;

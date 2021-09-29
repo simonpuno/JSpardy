@@ -201,6 +201,9 @@ body {
 .game-title {
     font-family: gyparody;
     font-size: 50px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 
