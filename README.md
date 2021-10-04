@@ -1,4 +1,6 @@
-## Background 
+## Introduction
+
+Live site: [JSpardy!](https://simonpuno.github.io/JSpardy/)
 
 JSpardy! is a playable spinoff of my favorite game show, *Jeopardy!* I religiously watch *Jeopardy!* every night, and I hope to capture the feeling of being a contestant on the show through this game. For those unfamilar, *Jeopardy!* is a trivia-based game show where contestants buzz in to answer clues from a game board. The clues are divided into 6 categories, and each clue contains a dollar value that is awarded to the contestant that correctly answers it. JSpardy! allows a player to select categories (or choose random ones) and play their own full game of *Jeopardy!* 
 
