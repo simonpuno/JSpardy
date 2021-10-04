@@ -7,11 +7,9 @@ JSpardy! is a playable spinoff of my favorite game show, *Jeopardy!* I religious
 
 In JSpardy!, users will be able to: 
 
-- Play a full game of *Jeopardy!* using real game clues from past episodes
+- Play a game of *Jeopardy!* using real game clues from past episodes
 - Select categories or choose random ones to play
 - Keep track of their score
-- Wager on daily doubles placed randomly across the board
-- Participate in the Final Jeopardy round
 - Play locally against another player
 
 In addition, this project will include: 
