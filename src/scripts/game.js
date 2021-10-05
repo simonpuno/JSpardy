@@ -137,14 +137,12 @@ class Game {
         this.cardModalElement.classList.remove('showing-result');
         this.cardModalElement.classList.add('visible');
         this.inputElement.focus();
-        // debugger;
     }
 
     handleFormSubmit (e) {
         e.preventDefault();
         // var isCorrect = this.fixAnswer(this.inputElement.value) === this.fixAnswer(this.currentClue.answer);
         var isCorrect = this.fixAnswer(this.inputElement.value, this.currentClue.answer)
-        // debugger;
         // check if correct
         if (isCorrect && this.skip === false) {
             this.updateScore(this.currentClue.value)
